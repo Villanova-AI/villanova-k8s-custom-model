@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~ Copyright 2015-Present Entando Inc. (http://www.entando.com) All rights reserved.
+  ~ Copyright 2015-Present Villanova Inc. (http://www.villanova.com) All rights reserved.
   ~
   ~ This library is free software; you can redistribute it and/or modify it under
   ~ the terms of the GNU Lesser General Public License as published by the Free
@@ -19,18 +19,18 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.entando</groupId>
-        <artifactId>entando-quarkus-parent</artifactId>
+        <groupId>ai.villanova</groupId>
+        <artifactId>villanova-quarkus-parent</artifactId>
         <version>7.3.0</version>
         <relativePath/>
     </parent>
     <version>7.3.0</version>
-    <artifactId>entando-k8s-custom-model</artifactId>
+    <artifactId>villanova-k8s-custom-model</artifactId>
 
-    <name>Entando Kubernetes Custom Model</name>
-    <description>Entando's Kubernetes Custom Resources</description>
+    <name>Villanova Kubernetes Custom Model</name>
+    <description>Villanova's Kubernetes Custom Resources</description>
     <inceptionYear>2019</inceptionYear>
-    <url>https://central.entando.com</url>
+    <url>https://villanova.ai</url>
 
     <licenses>
         <license>
@@ -40,8 +40,8 @@
         </license>
     </licenses>
     <organization>
-        <name>Entando Inc.</name>
-        <url>http://www.entando.com/</url>
+        <name>Villanova Inc.</name>
+        <url>http://www.villanova.ai/</url>
     </organization>
 
     <repositories>
@@ -65,7 +65,7 @@
     </scm>
     <properties>
 <!--        comment -->
-        <github.organization>entando-k8s</github.organization>
+        <github.organization>Villanova-AI</github.organization>
         <sonar.projectKey>${github.organization}_${project.artifactId}</sonar.projectKey>
         <sonar.junit.reportPaths>target/surefire-reports</sonar.junit.reportPaths>
     </properties>

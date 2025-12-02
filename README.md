@@ -1,14 +1,14 @@
-[![Build Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatusbadge-jx.apps.serv.run%2Fentando-k8s%2Fentando-k8s-custom-model)](https://github.com/entando-k8s/devops-results/tree/logs/jenkins-x/logs/entando-k8s/entando-k8s-custom-model/master)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=entando-k8s_entando-k8s-custom-model&metric=alert_status)](https://sonarcloud.io/dashboard?id=entando-k8s_entando-k8s-custom-model)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=entando-k8s_entando-k8s-custom-model&metric=coverage)](https://entando-k8s.github.io/devops-results/entando-k8s-custom-model/master/jacoco/index.html)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=entando-k8s_entando-k8s-custom-model&metric=vulnerabilities)](https://entando-k8s.github.io/devops-results/entando-k8s-custom-model/master/dependency-check-report.html)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=entando-k8s_entando-k8s-custom-model&metric=code_smells)](https://sonarcloud.io/dashboard?id=entando-k8s_entando-k8s-custom-model)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=entando-k8s_entando-k8s-custom-model&metric=security_rating)](https://sonarcloud.io/dashboard?id=entando-k8s_entando-k8s-custom-model)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=entando-k8s_entando-k8s-custom-model&metric=sqale_index)](https://sonarcloud.io/dashboard?id=entando-k8s_entando-k8s-custom-model)
+[![Build Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatusbadge-jx.apps.serv.run%2Fvillanova-k8s%2Fvillanova-k8s-custom-model)](https://github.com/villanova-k8s/devops-results/tree/logs/jenkins-x/logs/villanova-k8s/villanova-k8s-custom-model/master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=villanova-k8s_villanova-k8s-custom-model&metric=alert_status)](https://sonarcloud.io/dashboard?id=villanova-k8s_villanova-k8s-custom-model)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=villanova-k8s_villanova-k8s-custom-model&metric=coverage)](https://villanova-k8s.github.io/devops-results/villanova-k8s-custom-model/master/jacoco/index.html)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=villanova-k8s_villanova-k8s-custom-model&metric=vulnerabilities)](https://villanova-k8s.github.io/devops-results/villanova-k8s-custom-model/master/dependency-check-report.html)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=villanova-k8s_villanova-k8s-custom-model&metric=code_smells)](https://sonarcloud.io/dashboard?id=villanova-k8s_villanova-k8s-custom-model)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=villanova-k8s_villanova-k8s-custom-model&metric=security_rating)](https://sonarcloud.io/dashboard?id=villanova-k8s_villanova-k8s-custom-model)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=villanova-k8s_villanova-k8s-custom-model&metric=sqale_index)](https://sonarcloud.io/dashboard?id=villanova-k8s_villanova-k8s-custom-model)
 
-# entando-k8s-custom-model
-Entando's Custom Resource Definition model for Kubernetes. Used in our custom controllers as well as our Kubernetes 
-infrastructure. Use this project when integrating Entando and Kubernetes.
+# villanova-k8s-custom-model
+Villanova's Custom Resource Definition model for Kubernetes. Used in our custom controllers as well as our Kubernetes 
+infrastructure. Use this project when integrating Villanova and Kubernetes.
 
 Generally this project adheres to a similar builder pattern as the one used in the Fabric8 Kubernetes/Java client. 
 
@@ -16,25 +16,25 @@ Generally this project adheres to a similar builder pattern as the one used in t
 
 ## Step 1: resolving the correct CustomResourceOperation
 
-The first step in reading and/or manipulating Entando's custom resources, you need to resolve the 
+The first step in reading and/or manipulating Villanova's custom resources, you need to resolve the 
 CustomResourceOperation in the correct state. This object is required to use the Fabric8 Java client to
 interact with custom resources in Kubernetes in a type safe manner.  
 In order to do this, you may need to first deploy the correct 
 custom resource definition. Here is a code snippet to 'lazily' deploy the custom resource definition for the 
-EntandoApp custom resource, and then to resolve the correct CustomResourceOperation
+VillanovaApp custom resource, and then to resolve the correct CustomResourceOperation
 
 ```java
-        entandoAppCrd = client.customResourceDefinitions().withName(EntandoApp.CRD_NAME).get();
-        if (entandoAppCrd == null) {
+        villanovaAppCrd = client.customResourceDefinitions().withName(VillanovaApp.CRD_NAME).get();
+        if (villanovaAppCrd == null) {
             List<HasMetadata> list = client.load(Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("crd/EntandoAppCRD.yaml")).get();
-            entandoAppCrd = (CustomResourceDefinition) list.get(0);
+                    .getResourceAsStream("crd/VillanovaAppCRD.yaml")).get();
+            villanovaAppCrd = (CustomResourceDefinition) list.get(0);
             // see issue https://github.com/fabric8io/kubernetes-client/issues/1486
-            entandoAppCrd.getSpec().getValidation().getOpenAPIV3Schema().setDependencies(null);
-            client.customResourceDefinitions().create(entandoAppCrd);
+            villanovaAppCrd.getSpec().getValidation().getOpenAPIV3Schema().setDependencies(null);
+            client.customResourceDefinitions().create(villanovaAppCrd);
         }
-        return (CustomResourceOperationsImpl<EntandoApp, EntandoAppList, DoneableEntandoApp>) client
-            .customResources(entandoAppCrd, EntandoApp.class, EntandoAppList.class, DoneableEntandoApp.class);
+        return (CustomResourceOperationsImpl<VillanovaApp, VillanovaAppList, DoneableVillanovaApp>) client
+            .customResources(villanovaAppCrd, VillanovaApp.class, VillanovaAppList.class, DoneableVillanovaApp.class);
 
 ```
 
@@ -42,18 +42,18 @@ EntandoApp custom resource, and then to resolve the correct CustomResourceOperat
 
 There are different approaches one can use to create a new instance of custom resource. one approach is to use
 the 'builder' class of that custom resource. This class can be identified by the name of the custom resource 
-definition, e.g. `EntandoApp`, suffixed with the word `Builder`, e.g. `EntandoAppBuilder`. Here is an example
-of how to build and create an `EntandoApp`
+definition, e.g. `VillanovaApp`, suffixed with the word `Builder`, e.g. `VillanovaAppBuilder`. Here is an example
+of how to build and create an `VillanovaApp`
 
 ```java
-        CustomResourceOperationsImpl<EntandoApp, EntandoAppList, DoneableEntandoApp> entandoApps=...
-        EntandoApp entandoApp = new EntandoAppBuilder()
+        CustomResourceOperationsImpl<VillanovaApp, VillanovaAppList, DoneableVillanovaApp> villanovaApps=...
+        VillanovaApp villanovaApp = new VillanovaAppBuilder()
                 .withNewMetadata().withName(MY_APP)
                 .withNamespace(MY_NAMESPACE)
                 .endMetadata()
                 .withNewSpec()
                 .withDbms(DbmsImageVendor.MYSQL)
-                .withEntandoImageVersion(ENTANDO_IMAGE_VERSION)
+                .withVillanovaImageVersion(VILLANOVA_IMAGE_VERSION)
                 .withJeeServer(JeeServer.WILDFLY)
                 .withReplicas(5)
                 .withTlsEnabled(true)
@@ -61,7 +61,7 @@ of how to build and create an `EntandoApp`
                 .withKeycloakServer(MYKEYCLOAKNAMESPACE, MY_KEYCLOAK)
                 .endSpec()
                 .build();
-        entandoApps.inNamespace(MY_NAMESPACE).create(entandoApp);
+        villanovaApps.inNamespace(MY_NAMESPACE).create(villanovaApp);
 
 ```
 
@@ -72,13 +72,13 @@ a callback to update the resource when the `done` method is invoked. The resulti
 to the traditional builder, but also allows for the retrieved model object to be updated on completion, e.g. 
 
 ```java
-        entandoApps.inNamespace(MY_NAMESPACE).withName(MY_APP).edit()
+        villanovaApps.inNamespace(MY_NAMESPACE).withName(MY_APP).edit()
                 .editMetadata()
                     .addToLabels(MY_LABEL, MY_VALUE)
                 .endMetadata()
                 .editSpec()
                     .withDbms(DbmsImageVendor.MYSQL)
-                    .withEntandoImageVersion(ENTANDO_IMAGE_VERSION)
+                    .withVillanovaImageVersion(VILLANOVA_IMAGE_VERSION)
                     .withJeeServer(JeeServer.WILDFLY)
                     .withReplicas(5)
                     .withTlsEnabled(true)
@@ -87,7 +87,7 @@ to the traditional builder, but also allows for the retrieved model object to be
                 .endSpec()
                 .withStatus(new WebServerStatus("some-qualifier"))
                 .withStatus(new DbServerStatus("another-qualifier"))
-                .withPhase(EntandoDeploymentPhase.STARTED)
+                .withPhase(VillanovaDeploymentPhase.STARTED)
                 .done();
 
 ```
@@ -103,13 +103,13 @@ question and build the model object from there
 
 ## Old version of Fabric8 Kubernetes Java client
 
-Entando's operators are currently limited to the use of version 4.1.2 of the Fabric8 Kubernetes Java client. This
+Villanova's operators are currently limited to the use of version 4.1.2 of the Fabric8 Kubernetes Java client. This
 constraint is a result of using the Microbeans operators framework. We are actively looking at migrating to the
 more active JVM Operators framework.
 
 ## HTTP 409 and 422 errors on 'edit'
 
-During development of the Entando Kubernetes controllers, it was found that the `metadata.resourceVersion` of 
+During development of the Villanova Kubernetes controllers, it was found that the `metadata.resourceVersion` of 
 a custom resource can at times go out of sync with what it needs to be for an updated. This tends to happen
 when an `HTTP PATCH` (e.g. using `DoneableResource.done()`) operation was issued on the resource in 
 question, but with no differences compared  to the original resource. If you do encounter an 
